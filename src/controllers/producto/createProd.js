@@ -1,5 +1,5 @@
-const { Prod, Rubro, Artesano, Tag } = require("../db");
-const cloudinary = require("../utils/cloudinary");
+const { Prod, Rubro, Artesano, Tag } = require("../../db");
+const cloudinary = require("../../utils/cloudinary");
 
 const createProd = async (req, res, next) => {
   try {

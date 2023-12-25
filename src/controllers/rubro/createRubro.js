@@ -1,4 +1,4 @@
-const { Rubro } = require("../db");
+const { Rubro } = require("../../db");
 
 const createRubro = async (req, res, next) => {
   try {
