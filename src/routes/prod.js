@@ -1,26 +1,35 @@
+////////////////////////////////////////////////////////////
 const express = require("express");
 const router = express.Router();
-// const allBooks = require("../controllers/allBooks"); //se hizo cambio por B mayuscula el archivo allBooks.js
+
+////////////////////////////////////////////////////////////
+const getAllProd = require("../controllers/producto/getAllProd");
+const deleteProd = require("../controllers/producto/deleteProd");
+const createProd = require("../controllers/producto/createProd");
+const modifyProd = require("../controllers/producto/modifyProd");
+const restoreProd = require("../controllers/producto/restoreProd");
 // const allTags = require("../controllers/allTags");
 // const filterBooks = require("../controllers/filterBooks");
 // const findById = require("../controllers/findById");
 // const allLanguage = require("../controllers/allLanguage");
 // const allAuthors = require("../controllers/allAuthors");
-// const upDateBook = require("../controllers/upDateBook");
-// const restoreBook = require("../controllers/restoreBook");
-const deleteProd = require("../controllers/deleteProd");
-const createProd = require("../controllers/createProd");
 //const getAllRatingBook = require('../controllers/ratingBook');
 
 /* GET books listing. */
+router.get("/", getAllProd);
 ////////////////////////////
+
 /* POST books listing. */
 router.post("/", createProd);
 ////////////////////////////
+
 /* DELETE books listing. */
-router.delete("/delete/:id", deleteProd); /*, getDeletedBooks*/
+router.delete("/delete/:id", deleteProd);
 ////////////////////////////
+
 /* PUT books listing. */
+router.put("/update", modifyProd); //"/update/:id"
+router.put("/restore/:id", restoreProd);
 ////////////////////////////
 
 //router.get("/", allBooks);
@@ -30,8 +39,6 @@ router.delete("/delete/:id", deleteProd); /*, getDeletedBooks*/
 //router.get("/filter", filterBooks);
 //router.get("/tags", allTags);
 //router.get("/authors", allAuthors);
-//router.put("/update/:id", upDateBook);
-//router.put("/restore/:id", restoreBook);
 //router.get("/ratings",getAllRatingBook)
 
 module.exports = router;

@@ -1,6 +1,6 @@
 const { Artesano } = require("../../db");
 
-const upDateArt = async (req, res, next) => {
+const restoreArt = async (req, res, next) => {
   try {
     const art = await Artesano.findByPk(req.params.id, { paranoid: false });
 
@@ -22,4 +22,4 @@ const upDateArt = async (req, res, next) => {
   }
 };
 
-module.exports = upDateArt;
+module.exports = restoreArt;
