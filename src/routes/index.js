@@ -1,14 +1,15 @@
 const express = require("express");
 
-const books = require("./prod");
-// const users = require("./users");
-// const favorite = require("./favorite");
+const prod = require("./prod");
+const rubro = require("./rubro");
+const art = require("./art");
 // const review = require("./review");
-// const shoppingcart = require("./r.shoppingcart");
 // const mail = require("./mail");
 
 const router = express.Router();
 
 router.use("/productos", prod);
+router.use("/rubro", rubro);
+router.use("/art", art);
 
 module.exports = router;
