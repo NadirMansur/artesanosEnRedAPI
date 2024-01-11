@@ -7,58 +7,29 @@ module.exports = (sequelize) => {
       autoIncrement: true,
       primaryKey: true,
     },
-    user_name: {
+    googleId: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
     },
-    username:{
+    displayName: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
     },
-    email: {
+    familyName: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
     },
-    password: {
+    givenName: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
     },
-
-    aud: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    azp: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    email_verified: {
-      type: DataTypes.BOOLEAN,
-      allowNull: true,
-    },
-    family_name: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    given_name: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    locale: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    picture: {
+    photo: {
       type: DataTypes.STRING,
       allowNull: true,
     },
     sub: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
     },
   },{paranoid:true});
 };

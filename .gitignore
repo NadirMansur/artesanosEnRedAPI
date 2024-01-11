@@ -14,6 +14,7 @@ report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 /src/models/ignore
 /src/controllers/ignore
 /src/routes/ignore
+/src/ignore
 # Runtime data
 pids
 *.pid

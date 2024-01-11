@@ -1,19 +1,49 @@
+require("dotenv").config();
 const createError = require("http-errors");
 const express = require("express");
+const session = require('express-session');
+const passport = require("passport");
 const fileUpload = require("express-fileupload");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 var cors = require("cors");
-
 const indexRouter = require("./routes/index");
 //const usersRouter = require('./routes/users');
 require("./db.js");
+require("./auth")
+
+const { SESSION_SECRET } = process.env;
+
 
 const app = express();
 
+////////////////////session/////////////
+app.use(session({
+  secret: SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true,
+}));
+///////////////////////session/////////////
+// Configuración de Passport
+app.use(passport.initialize());
+app.use(passport.session());
+// Configuración de Passport
+// Configuración serializeUser y deserializeUser
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+  // Busca y devuelve el usuario desde la base de datos según el id proporcionado
+  User.findById(id, (err, user) => {
+    done(err, user);
+  });
+});
+// Configuración serializeUser y deserializeUser
+
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Origin", "http://localhost:5173"); // update to match the domain you will make the request from
   res.header("Access-Control-Allow-Credentials", "true");
   res.header(
     "Access-Control-Allow-Headers",
@@ -43,6 +73,7 @@ app.use(
     uploadTimeout: 0,
   })
 );
+
 app.use("/", indexRouter);
 //app.use('/users', usersRouter);
 

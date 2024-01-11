@@ -1,7 +1,7 @@
+require("dotenv").config();
 const app = require("./src/app");
 const { conn } = require("./src/db.js");
 
-require("dotenv").config();
 const { PORT } = process.env;
 async function main() {
   try {
