@@ -14,7 +14,7 @@
       async function (accessToken, refreshToken, profile, cb) {
         try {
           //// revisar ////
-          console.log("Perfil de Google:", profile);
+          //console.log("Perfil de Google:", profile);
           const [user, created] = await User.findOrCreate({
             where: { googleId: profile.id },
             defaults: {
