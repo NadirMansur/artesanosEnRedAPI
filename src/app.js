@@ -6,6 +6,7 @@ const passport = require("passport");
 const fileUpload = require("express-fileupload");
 const path = require("path");
 const cookieParser = require("cookie-parser");
+const { User } = require("./db");
 
 const logger = require("morgan");
 //const morgan = require('morgan');
@@ -37,11 +38,19 @@ passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
-passport.deserializeUser((id, done) => {
-  // Busca y devuelve el usuario desde la base de datos según el id proporcionado
-  User.findById(id, (err, user) => {
-    done(err, user);
-  });
+passport.deserializeUser(async (id, done) => {
+  try {
+    // Busca y devuelve el usuario desde la base de datos según el id proporcionado
+    const user = await User.findByPk(id);
+
+    if (user) {
+      done(null, user);
+    } else {
+      done(null, null);
+    }
+  } catch (err) {
+    done(err, null);
+  }
 });
 // Configuración serializeUser y deserializeUser
 
@@ -90,6 +99,7 @@ app.use(function (req, res, next) {
 // error handler
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development
+  console.error("ESTRUCTURA DEL ERROR!:",err);
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};
 

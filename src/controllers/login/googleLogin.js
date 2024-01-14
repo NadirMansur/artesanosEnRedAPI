@@ -1,4 +1,6 @@
 const { User } = require("../../db");
+const renderUserInfoPage = require("../../utils/renderUserInfo")
+
 
 const googleLogin = async (req, res) => {
   // Manejar redirección exitosa, si es necesario
@@ -8,15 +10,22 @@ const googleLogin = async (req, res) => {
     const user = await User.findOne({
         where: { googleId: req.user.googleId },
       });
-      console.log("passport.authenticate, user: ", user);
-      // Maneja la redirección exitosa y envía la información del usuario al frontend
-      res.json({ user: user });
-      //res.redirect("/ruta_despues_de_autenticar");//modificar la ruta luego de autentificar
       console.log("Antes de enviar la respuesta");
+      if (user) {
+        const renderedPage = renderUserInfoPage(user);
+  
+        // Envia la página HTML como respuesta
+        res.send(renderedPage);
+      }else {
+        res.status(404).json({ error: "Usuario no encontrado" });
+      }
+      // Maneja la redirección exitosa y envía la información del usuario al frontend
+      //res.json({ user: user });
+      //res.redirect("/ruta_despues_de_autenticar");//modificar la ruta luego de autentificar
       // res.send(
       //   `<script>window.opener.postMessage(${JSON.stringify({
-      //     user, message: "ingrese al script de respuepueta del servidor"
-      //   })}, "*"); window.close();</script>`
+      //     user:user, message: "ingrese al script de respuepueta del servidor"
+      //   })}, "*");</script>`
       // );
       console.log("Después de enviar la respuesta");
   } catch (err) {

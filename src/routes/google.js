@@ -4,13 +4,13 @@ const router = express.Router();
 const passport = require("passport");
 const googleLogin = require("../controllers/login/googleLogin");
 ////////////////////////////////////////////////////////////
-//const getAllArt = require("../controllers/artesano/getAllArt");
 ////////////////////////////////////////////////////////////
 
 // Middleware para la autenticación de Google
 const authenticateGoogle = passport.authenticate("google", {
   scope: "profile",
 });
+
 /* GET books listing. l*/
 // Ruta para iniciar el proceso de autenticación de Google
 router.get("/", authenticateGoogle);
@@ -18,8 +18,11 @@ router.get("/", authenticateGoogle);
 router.get(
   "/callback",
   authenticateGoogle,
-  //passport.authenticate("google", { failureRedirect: "/" }),
-  googleLogin
+  googleLogin,
+  passport.authenticate("google", {
+    successReturnToOrRedirect: "/",
+    failureRedirect: "/",
+  })
 );
 ////////////////////////////
 

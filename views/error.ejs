@@ -1,14 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Error</title>
-</head>
-<body>
-    <h1>Error</h1>
-    <p><%= message %></p>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f8f8f8;
+        color: #333;
+        text-align: center;
+        padding: 50px;
+        margin: 0;
+      }
+
+      h1 {
+        color: #ff6347;
+      }
+
+      p {
+        font-size: 18px;
+      }
+
+      pre {
+        white-space: pre-wrap;
+        text-align: left;
+        margin-top: 20px;
+        background-color: #eee;
+        padding: 20px;
+        border-radius: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>¡Ups, ha ocurrido un error!</h1>
+    <p>Lo sentimos, algo salió mal en el servidor.</p>
     <p>Detalles del error:</p>
-    <pre><%= error %></pre>
-</body>
+    <pre>
+        <%= error %></pre>
+  </body>
 </html>
