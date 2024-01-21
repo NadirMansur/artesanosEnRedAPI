@@ -3,13 +3,12 @@ const express = require("express");
 const router = express.Router();
 
 ////////////////////////////////////////////////////////////
-const getAllArt = require("../controllers/artesano/getAllArt");
-const getArtById = require("../controllers/artesano/getArtById");
-const deleteArt = require("../controllers/artesano/deleteArt");
-const createArtesano = require("../controllers/artesano/createArtesano");
-const loginArtesano = require("../controllers/artesano/loginArtesano");
-const modifyArt = require("../controllers/artesano/modifyArt");
-const restoreArt = require("../controllers/artesano/restoreArt");
+//const getAllUsers = require("../controllers/artesano/getAllArt");
+//const deleteUser = require("../controllers/artesano/deleteArt");
+//const createArtesano = require("../controllers/artesano/createArtesano");
+//const modifyArt = require("../controllers/artesano/modifyArt");
+//const restoreUser = require("../controllers/artesano/restoreArt");
+const getUserByGoogleId = require("../controllers/user/getUserByGoogleId");
 // const allTags = require("../controllers/allTags");
 // const filterBooks = require("../controllers/filterBooks");
 // const findById = require("../controllers/findById");
@@ -18,22 +17,22 @@ const restoreArt = require("../controllers/artesano/restoreArt");
 //const getAllRatingBook = require('../controllers/ratingBook');
 
 /* GET books listing. */
-router.get("/", getAllArt);
-router.get("/getById", getArtById);
+//router.get("/", getAllArt);
+router.get('/getByGoogleId', getUserByGoogleId);
+
 ////////////////////////////
 
 /* POST books listing. */
-router.post("/", createArtesano);
-router.post("/login", loginArtesano);
+//router.post("/", createArtesano);
 ////////////////////////////
 
 /* DELETE books listing. */
-router.delete("/delete/:id", deleteArt);
+//router.delete("/delete/:id", deleteArt);
 ////////////////////////////
 
 /* PUT books listing. */
-router.put("/update", modifyArt); //"/update/:id"
-router.put("/restore/:id", restoreArt);
+//router.put("/update", modifyArt); //"/update/:id"
+//router.put("/restore/:id", restoreArt);
 ////////////////////////////
 
 //router.get("/", allBooks);

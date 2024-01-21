@@ -8,7 +8,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    // callbackURL: "http://localhost:5173/auth/google/callback", //modificar luego tanto aqui como en la consola de apps google
+      //callbackURL: "http://localhost:5173/auth/google/callback", //modificar luego tanto aqui como en la consola de apps google
       callbackURL: "http://localhost:3001/auth/google/callback", //modificar luego tanto aqui como en la consola de apps google
       scope: ["profile"],
       state: true,

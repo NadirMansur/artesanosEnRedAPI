@@ -16,17 +16,13 @@ const googleLogin = async (req, res) => {
   
         // Envia la página HTML como respuesta
         res.send(renderedPage);
+        //res.redirect(`http://localhost:5173/auth/google/callback?googleId=${req.user.googleId}`);
       }else {
         res.status(404).json({ error: "Usuario no encontrado" });
       }
-      // Maneja la redirección exitosa y envía la información del usuario al frontend
-      //res.json({ user: user });
+      
       //res.redirect("/ruta_despues_de_autenticar");//modificar la ruta luego de autentificar
-      // res.send(
-      //   `<script>window.opener.postMessage(${JSON.stringify({
-      //     user:user, message: "ingrese al script de respuepueta del servidor"
-      //   })}, "*");</script>`
-      // );
+
       console.log("Después de enviar la respuesta");
   } catch (err) {
      // Maneja cualquier error que pueda ocurrir al buscar el usuario
