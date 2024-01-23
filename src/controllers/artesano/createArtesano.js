@@ -1,9 +1,11 @@
-const { Prod, Rubro, Artesano, Tag } = require("../../db");
+const bcrypt = require("bcrypt");
+const { Artesano } = require("../../db");
 const cloudinary = require("../../utils/cloudinary");
 
 const createArt = async (req, res, next) => {
   try {
-    const { username, tel, email, password, intro } = req.body;
+    const formData = req.body;
+    formData;
 
     // req.files/////////////////////////////////////////////////////
     if (req.files === null) {
@@ -13,13 +15,13 @@ const createArt = async (req, res, next) => {
     if (!req.files || Object.keys(req.files).length === 0) {
       return res.status(400).send("No se cargó imagen de perfil");
     }
-    
+
     const result = [];
     try {
       if (!req.files || !req.files.file) {
         return res.status(400).send("No se ha enviado ninguna imagen");
       }
-      
+
       const result = await cloudinary.uploader.upload(req.files.file);
       if (result) {
         console.log("Imagen subida a Cloudinary:", result);
@@ -33,16 +35,19 @@ const createArt = async (req, res, next) => {
       res.status(500).send("Error al subir la imagen a Cloudinary");
     }
     ///////////////////////////////////////////////////////////////
-    
+    const hashedPassword = bcrypt.hash(formData.password);
+
     const newArt = await Artesano.create({
-      username,
-      tel,
+      username: formData.username,
+      tel: formData.tel,
+      email: formData,
       email,
-      password,
+      password: hashedPassword,
       img_perfil: result[0],
-      intro,
+      intro: formData.intro,
     });
     res.send({
+      status: true,
       message: "Productor dado de alta satisfactoriamente!",
       newArt: newArt,
     });
