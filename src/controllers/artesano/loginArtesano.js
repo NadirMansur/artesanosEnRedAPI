@@ -1,34 +1,37 @@
-const bcrypt = require('bcrypt');
-const { Art } = require('../../db');
+const bcrypt = require("bcrypt");
+const { Artesano } = require("../../db");
 
 const loginArtesano = async (req, res, next) => {
   try {
-    const { formData } = req.body;
+    const { singInUsername, signInPassword } = req.body;
 
-    const art = await Art.findOne({
+    const art = await Artesano.findOne({
       where: {
-        username: formData.username,
+        username: singInUsername,
       },
     });
 
     if (art) {
       // Compara la contraseña ingresada con el hash almacenado en la base de datos
-      const passwordMatch = await bcrypt.compare(formData.password, art.password);
+      const passwordMatch = await bcrypt.compare(signInPassword, art.password);
 
       if (passwordMatch) {
+        console.log("passwordMatch");
         res.send({
           status: true,
         });
       } else {
+        console.log("DispasswordMatch");
         res.send({
           status: false,
-          message: 'Contraseña incorrecta',
+          message: "Contraseña incorrecta",
         });
       }
     } else {
+      console.log("Usuario incorrecto");
       res.send({
         status: false,
-        message: 'Usuario incorrecto',
+        message: "Usuario incorrecto",
       });
     }
   } catch (err) {

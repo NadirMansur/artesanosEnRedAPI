@@ -1,13 +1,12 @@
 require("dotenv").config();
 const createError = require("http-errors");
 const express = require("express");
-const session = require('express-session');
+const session = require("express-session");
 const passport = require("passport");
 const fileUpload = require("express-fileupload");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const { User } = require("./db");
-
 const logger = require("morgan");
 //const morgan = require('morgan');
 
@@ -15,19 +14,20 @@ var cors = require("cors");
 const indexRouter = require("./routes/index");
 //const usersRouter = require('./routes/users');
 require("./db.js");
-require("./auth")
+require("./auth");
 
 const { SESSION_SECRET } = process.env;
-
 
 const app = express();
 
 ////////////////////session/////////////
-app.use(session({
-  secret: SESSION_SECRET,
-  resave: false,
-  saveUninitialized: true,
-}));
+app.use(
+  session({
+    secret: SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 ///////////////////////session/////////////
 // Configuración de Passport
 app.use(passport.initialize());
@@ -71,7 +71,7 @@ app.set("view engine", "ejs");
 app.use(cors()); // Use this after the variable declaration
 
 app.use(logger("dev"));
-//app.use(morgan('combined')); 
+//app.use(morgan('combined'));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -99,7 +99,7 @@ app.use(function (req, res, next) {
 // error handler
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development
-  console.error("ESTRUCTURA DEL ERROR!:",err);
+  console.error("ESTRUCTURA DEL ERROR!:", err);
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};
 

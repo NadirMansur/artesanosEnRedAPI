@@ -11,7 +11,7 @@ module.exports = (sequelize) => {
       },
       username: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       status: {
         type: DataTypes.BOOLEAN,
@@ -20,23 +20,23 @@ module.exports = (sequelize) => {
       },
       tel: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       email: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       password: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       img_perfil: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       intro: {
         type: DataTypes.TEXT,
-        allowNull: true,
+        allowNull: false,
       },
     },
     { paranoid: true }
