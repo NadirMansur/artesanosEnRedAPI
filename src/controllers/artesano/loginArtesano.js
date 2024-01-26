@@ -17,15 +17,23 @@ const loginArtesano = async (req, res, next) => {
 
       if (passwordMatch) {
         console.log("passwordMatch");
+        const artWithoutPassword = await Artesano.findOne({
+          where: {
+            id: art.id,
+          },
+          attributes: { exclude: ["password"] },
+        });
         res.send({
           status: true,
           message: "has ingresado satisfactoriamente",
+          art: artWithoutPassword,
         });
       } else {
         console.log("DispasswordMatch");
         res.send({
           status: false,
           message: "Contraseña incorrecta",
+          art: null,
         });
       }
     } else {
@@ -33,6 +41,7 @@ const loginArtesano = async (req, res, next) => {
       res.send({
         status: false,
         message: "Usuario incorrecto",
+        art: null,
       });
     }
   } catch (err) {
