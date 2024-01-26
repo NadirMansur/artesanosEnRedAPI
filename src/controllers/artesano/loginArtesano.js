@@ -19,6 +19,7 @@ const loginArtesano = async (req, res, next) => {
         console.log("passwordMatch");
         res.send({
           status: true,
+          message: "has ingresado satisfactoriamente",
         });
       } else {
         console.log("DispasswordMatch");
