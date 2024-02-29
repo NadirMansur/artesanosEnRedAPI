@@ -3,14 +3,10 @@ const cloudinary = require("../../utils/cloudinary");
 
 const createProd = async (req, res, next) => {
   try {
-    const { prod_name, description, price, ArtId, RubroId, tags } = req.body;
+    const { prod_name, description, ArtId, RubroId, tags } = req.body;
 
     ////////////////////////////////////////////////////////////////
-    if (
-      prod_name.length === 0 ||
-      description.length === 0 ||
-      price.length === 0
-    )
+    if (prod_name.length === 0 || description.length === 0)
       return res.send(
         "Nomrbe del producto, Descripcion del producto y el precio son requeridos"
       );
@@ -127,20 +123,11 @@ const createProd = async (req, res, next) => {
     // export default App;
 
     const img_1 = uploadedImages[0];
-    const img_2 = uploadedImages[1];
-    const img_3 = uploadedImages[2];
-    const img_4 = uploadedImages[3];
-    const img_5 = uploadedImages[4];
     // Create Book/////////////////////////////////////////////////////////////
     const newProd = await Prod.create({
       prod_name,
       img_1,
-      img_2,
-      img_3,
-      img_4,
-      img_5,
       description,
-      price,
       ArtId: ArtesanoIdBody.id,
       RubroId: RubroIdBody.id,
     });
@@ -151,6 +138,7 @@ const createProd = async (req, res, next) => {
     /////////////////////////////////////////////////////////////////////////////////////
 
     res.send({
+      status: true,
       message: "Producto creado satisfactoriamente!",
       newProd: newProd,
     });

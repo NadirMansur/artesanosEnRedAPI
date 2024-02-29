@@ -15,19 +15,19 @@ const restoreProd = require("../controllers/producto/restoreProd");
 // const allAuthors = require("../controllers/allAuthors");
 //const getAllRatingBook = require('../controllers/ratingBook');
 
-/* GET books listing. */
+/* GET prod listing. */
 router.get("/", getAllProd);
 ////////////////////////////
 
-/* POST books listing. */
+/* POST prod listing. */
 router.post("/", createProd);
 ////////////////////////////
 
-/* DELETE books listing. */
+/* DELETE prod listing. */
 router.delete("/delete/:id", deleteProd);
 ////////////////////////////
 
-/* PUT books listing. */
+/* PUT prod listing. */
 router.put("/update", modifyProd); //"/update/:id"
 router.put("/restore/:id", restoreProd);
 ////////////////////////////

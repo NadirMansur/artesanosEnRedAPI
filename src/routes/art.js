@@ -17,21 +17,21 @@ const restoreArt = require("../controllers/artesano/restoreArt");
 // const allAuthors = require("../controllers/allAuthors");
 //const getAllRatingBook = require('../controllers/ratingBook');
 
-/* GET books listing. */
+/* GET art listing. */
 router.get("/", getAllArt);
 router.get("/getById", getArtById);
 ////////////////////////////
 
-/* POST books listing. */
+/* POST art listing. */
 router.post("/", createArtesano);
 router.post("/login", loginArtesano);
 ////////////////////////////
 
-/* DELETE books listing. */
+/* DELETE art listing. */
 router.delete("/delete/:id", deleteArt);
 ////////////////////////////
 
-/* PUT books listing. */
+/* PUT art listing. */
 router.put("/update", modifyArt); //"/update/:id"
 router.put("/restore/:id", restoreArt);
 ////////////////////////////

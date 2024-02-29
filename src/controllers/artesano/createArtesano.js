@@ -48,12 +48,11 @@ const createArt = async (req, res, next) => {
       intro: formData.intro,
     });
 
-
     const artWithoutPassword = await Artesano.findOne({
       where: {
         id: newArt.id,
       },
-      attributes: { exclude: ['password'] }, 
+      attributes: { exclude: ["password"] },
     });
 
     if (artWithoutPassword) {
@@ -62,7 +61,7 @@ const createArt = async (req, res, next) => {
         message: "Productor dado de alta satisfactoriamente!",
         newArt: artWithoutPassword,
       });
-    }else{
+    } else {
       res.send({
         status: false,
         message: "Error al crear el usuario",
@@ -70,7 +69,8 @@ const createArt = async (req, res, next) => {
       });
     }
   } catch (err) {
-    next(err);
+    console.error("Error al crear el usuario:", err);
+    res.status(500).send("Error al crear el usuario");
   }
 };
 
