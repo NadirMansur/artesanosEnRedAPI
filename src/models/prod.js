@@ -18,23 +18,23 @@ module.exports = (sequelize) => {
     },
     img_2: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     img_3: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     img_4: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     img_5: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     description: {
       type: DataTypes.TEXT,
-      allowNull: true, 
+      allowNull: false, 
     },
     price: {
       type: DataTypes.DECIMAL(10, 2),

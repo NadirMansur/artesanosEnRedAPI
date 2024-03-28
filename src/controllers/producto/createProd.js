@@ -3,15 +3,9 @@ const cloudinary = require("../../utils/cloudinary");
 
 const createProd = async (req, res, next) => {
   try {
-    const { prod_name, description, ArtId, RubroId, tags } = req.body;
+    const  formDataBody  = req.body;
 
-    ////////////////////////////////////////////////////////////////
-    if (prod_name.length === 0 || description.length === 0)
-      return res.send(
-        "Nomrbe del producto, Descripcion del producto y el precio son requeridos"
-      );
-    //////////////////////////////////////////////////////////////////////
-
+    console.log("formDataBody, ", formDataBody);
     // req.files/////////////////////////////////////////////////////
     if (req.files === null) {
       return res.send("No se cargaron imagenes para el producto");
@@ -22,9 +16,38 @@ const createProd = async (req, res, next) => {
     }
     ///////////////////////////////////////////////////////////////
 
+    // //cloudinary ///////////////////////////////////////////////////////////
+
+    let result = "";
+    try {
+      if (!req.files || !req.files.file) {
+        return res.status(400).send("No se ha enviado ninguna imagen");
+      }
+      const file = req.files.file;
+      //console.log("ACA MUESTRO EL VALOR DE file", file);
+      result = await cloudinary(file.tempFilePath);
+      if (result) {
+        console.log("Imagen subida a Cloudinary:", result);
+        console.log("typeof(result):", typeof result);
+      } else {
+        console.error("Error al subir la imagen a Cloudinary:", error);
+        res.status(500).send("Error al subir la imagen a Cloudinary");
+      }
+    } catch (error) {
+      console.error("Error al subir la imagen a Cloudinary:", error);
+      res.status(500).send("Error al subir la imagen a Cloudinary");
+    }
+
+    ////////////////////////////////////////////////////////////////
+    if (formDataBody.title === 0 || formDataBody.description === 0)
+      return res.send(
+        "Nomrbe del producto, Descripcion del producto y el precio son requeridos"
+      );
+    //////////////////////////////////////////////////////////////////////
+    // seguir de aca en adelante
     // Artesano///////////////////////////////////////////////////////////////////////
     let ArtesanoIdBody = await Artesano.findOne({
-      where: { id: ArtId },
+      where: { id: formDataBody.id },
     });
 
     if (!ArtesanoIdBody) {
@@ -36,7 +59,7 @@ const createProd = async (req, res, next) => {
 
     // Rubro///////////////////////////////////////////////////////////////////////
     let RubroIdBody = await Rubro.findOne({
-      where: { id: RubroId },
+      where: { name: formDataBody.rubro },
     });
 
     if (!RubroIdBody) {
@@ -45,7 +68,12 @@ const createProd = async (req, res, next) => {
     //////////////////////////////////////////////////////////////////////////////////
 
     // Tags///////////////////////////////////////////////////////////////////////////
-    const tagNames = Array.isArray(tags) ? tags : [tags]; // Convierte en arreglo si no lo es
+    const tagNames = [
+      formDataBody.tag1,
+      formDataBody.tag2,
+      formDataBody.tag3,
+      formDataBody.tag4,
+    ]; // Convierte en arreglo si no lo es
     const tagsBody = await Promise.all(
       tagNames.map(async (tagName) => {
         let tag = await Tag.findOne({
@@ -60,75 +88,12 @@ const createProd = async (req, res, next) => {
       })
     );
     ///////////////////////////////////////////////////////////////////////////
-
-    // //cloudinary ///////////////////////////////////////////////////////////
-    // const file = await cloudinary(req.files.image.tempFilePath);
-    // console.log(file, "file");
-    // image = file;
-
-    const uploadedImages = [];
-    try {
-      for (const file of req.files.file) {
-        const result = await cloudinary.uploader.upload(
-          file
-          //   , {
-          //   folder: "nombre_de_carpeta", // Opcional: especifica la carpeta en Cloudinary
-          //   resource_type: "auto", // Auto detectar el tipo de recurso (imagen, video, etc.)
-          // }
-        );
-        uploadedImages.push(result);
-      }
-      console.log("Imágenes subidas a Cloudinary:", uploadedImages);
-    } catch (error) {
-      console.error("Error al subir imágenes a Cloudinary:", error);
-      res.status(500).send("Error al subir imágenes a Cloudinary");
-    }
-
-    // import React from 'react';
-
-    // const App = () => {
-    //   const handleFileUpload = async (event) => {
-    //     const files = event.target.files;
-
-    //     try {
-    //       const formData = new FormData();
-
-    //       for (let i = 0; i < files.length; i++) {
-    //         formData.append('file', files[i]);
-    //       }
-
-    //       const response = await fetch('http://localhost:3001/upload', {
-    //         method: 'POST',
-    //         body: formData,
-    //       });
-
-    //       if (response.ok) {
-    //         console.log('Imágenes enviadas correctamente');
-    //       } else {
-    //         console.error('Error al enviar imágenes');
-    //       }
-    //     } catch (error) {
-    //       console.error('Error de red:', error);
-    //     }
-    //   };
-
-    //   return (
-    //     <div>
-    //       <h1>Subir imágenes</h1>
-    //       <input type="file" multiple onChange={handleFileUpload} />
-    //     </div>
-    //   );
-    // };
-
-    // export default App;
-
-    const img_1 = uploadedImages[0];
     // Create Book/////////////////////////////////////////////////////////////
     const newProd = await Prod.create({
-      prod_name,
-      img_1,
-      description,
-      ArtId: ArtesanoIdBody.id,
+      prod_name: formDataBody.title,
+      img_1: result,
+      description: formDataBody.description,
+      ArtId: formDataBody.id,
       RubroId: RubroIdBody.id,
     });
 
