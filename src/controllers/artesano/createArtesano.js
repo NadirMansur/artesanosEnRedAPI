@@ -6,6 +6,12 @@ const createArt = async (req, res, next) => {
   try {
     const formData = req.body;
 
+    const existingUser = await Artesano.findOne({ where: { username: formData.signUpName } });
+    if (existingUser) {
+      return res.status(409).send('El nombre de usuario ya existe');
+    }
+
+
     // req.files/////////////////////////////////////////////////////
     if (req.files === null) {
       return res.send("No se cargó imagen de perfil");

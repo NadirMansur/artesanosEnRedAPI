@@ -1,10 +1,9 @@
-const { Art } = require("../../db");
+const { Artesano } = require("../../db");
 
 const getArtById = async (req, res, next) => {
   try {
     const { id } = req.query;
-
-    const art = await Art.findOne({
+    const art = await Artesano.findOne({
       where: {
         id: id,
       },
@@ -12,13 +11,16 @@ const getArtById = async (req, res, next) => {
     if (art) {
       res.send(art);
     } else {
-      res.send({
+      res.status(404).send({
         state: false,
         message: "no se encontro el emprendedor",
       });
     }
   } catch (err) {
-    next(err);
+    res.status(500).send({
+      state: false,
+      message: "Error del servidor",
+    });
   }
 };
 

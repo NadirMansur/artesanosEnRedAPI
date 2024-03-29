@@ -10,6 +10,8 @@ const createArtesano = require("../controllers/artesano/createArtesano");
 const loginArtesano = require("../controllers/artesano/loginArtesano");
 const modifyArt = require("../controllers/artesano/modifyArt");
 const restoreArt = require("../controllers/artesano/restoreArt");
+const getRubrosById = require("../controllers/artesano/getRubrosById"); 
+const getProdsById = require("../controllers/artesano/getProdsById"); 
 // const allTags = require("../controllers/allTags");
 // const filterBooks = require("../controllers/filterBooks");
 // const findById = require("../controllers/findById");
@@ -20,6 +22,8 @@ const restoreArt = require("../controllers/artesano/restoreArt");
 /* GET art listing. */
 router.get("/", getAllArt);
 router.get("/getById", getArtById);
+router.get("/getRubrosById", getRubrosById);
+router.get("/getProdsById", getProdsById);
 ////////////////////////////
 
 /* POST art listing. */

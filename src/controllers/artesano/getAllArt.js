@@ -3,7 +3,9 @@ const { Artesano } = require("../../db");
 const getAllArt = async (req, res, next) => {
   // console.log("entre al controller getAllArt");
   try {
-    const arts = await Artesano.findAll();
+    const arts = await Artesano.findAll({
+      attributes: { exclude: ['password',"tel","email","createdAt", "deletedAt", "updatedAt","username","intro","img_perfil"] }
+    });
     if (arts) {
       res.send(arts);
     }else{
@@ -14,3 +16,9 @@ const getAllArt = async (req, res, next) => {
   }
 };
 module.exports = getAllArt;
+
+
+// id
+// status
+
+
