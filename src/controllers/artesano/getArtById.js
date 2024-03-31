@@ -7,6 +7,7 @@ const getArtById = async (req, res, next) => {
       where: {
         id: id,
       },
+      attributes: { exclude: ["password"] },
     });
     if (art) {
       res.send(art);

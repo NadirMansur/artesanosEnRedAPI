@@ -12,6 +12,7 @@ const modifyArt = require("../controllers/artesano/modifyArt");
 const restoreArt = require("../controllers/artesano/restoreArt");
 const getRubrosById = require("../controllers/artesano/getRubrosById"); 
 const getProdsById = require("../controllers/artesano/getProdsById"); 
+const setArtStatus = require("../controllers/artesano/setArtStatus"); 
 // const allTags = require("../controllers/allTags");
 // const filterBooks = require("../controllers/filterBooks");
 // const findById = require("../controllers/findById");
@@ -38,6 +39,7 @@ router.delete("/delete/:id", deleteArt);
 /* PUT art listing. */
 router.put("/update", modifyArt); //"/update/:id"
 router.put("/restore/:id", restoreArt);
+router.put("/setStatus/:id",setArtStatus)
 ////////////////////////////
 
 //router.get("/", allBooks);
