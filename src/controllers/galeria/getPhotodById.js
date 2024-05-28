@@ -1,6 +1,6 @@
-const { Artesano, Galeria, Rubro, Tag } = require("../../db");
+const { Galeria } = require("../../db");
 
-const getProdsById = async (req, res, next) => {
+const getPhotodById = async (req, res, next) => {
   try {
     const { id } = req.query;
     const galeria = await Galeria.findAll({
@@ -18,7 +18,6 @@ const getProdsById = async (req, res, next) => {
       });
     }
   } catch (err) {
-    console.log(err);
     res.status(500).send({
       state: false,
       message: "Error del servidor",
@@ -26,4 +25,4 @@ const getProdsById = async (req, res, next) => {
   }
 };
 
-module.exports = getProdsById;
+module.exports = getPhotodById;

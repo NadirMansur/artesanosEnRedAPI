@@ -6,11 +6,12 @@ const createArt = async (req, res, next) => {
   try {
     const formData = req.body;
 
-    const existingUser = await Artesano.findOne({ where: { username: formData.signUpName } });
+    const existingUser = await Artesano.findOne({
+      where: { username: formData.signUpName },
+    });
     if (existingUser) {
-      return res.status(409).send('El nombre de usuario ya existe');
+      return res.status(409).send("El nombre de usuario ya existe");
     }
-
 
     // req.files/////////////////////////////////////////////////////
     if (req.files === null) {
@@ -26,12 +27,8 @@ const createArt = async (req, res, next) => {
         return res.status(400).send("No se ha enviado ninguna imagen");
       }
       const file = req.files.file;
-      //console.log("ACA MUESTRO EL VALOR DE file", file);
       result = await cloudinary(file.tempFilePath);
-      if (result) {
-        console.log("Imagen subida a Cloudinary:", result);
-        console.log("typeof(result):", typeof result);
-      } else {
+      if (!result) {
         console.error("Error al subir la imagen a Cloudinary:", error);
         res.status(500).send("Error al subir la imagen a Cloudinary");
       }
@@ -42,8 +39,6 @@ const createArt = async (req, res, next) => {
     ///////////////////////////////////////////////////////////////
 
     const hashedPassword = await bcrypt.hash(formData.signUpPassword, 10);
-    console.log("typeof(hashedPassword):", typeof hashedPassword);
-    console.log("(hashedPassword):", hashedPassword);
 
     const newArt = await Artesano.create({
       username: formData.signUpName,

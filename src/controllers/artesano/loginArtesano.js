@@ -16,7 +16,6 @@ const loginArtesano = async (req, res, next) => {
       const passwordMatch = await bcrypt.compare(signInPassword, art.password);
 
       if (passwordMatch) {
-        console.log("passwordMatch");
         const artWithoutPassword = await Artesano.findOne({
           where: {
             id: art.id,
@@ -29,7 +28,6 @@ const loginArtesano = async (req, res, next) => {
           art: artWithoutPassword,
         });
       } else {
-        console.log("DispasswordMatch");
         res.send({
           status: false,
           message: "Contraseña incorrecta",
@@ -37,7 +35,6 @@ const loginArtesano = async (req, res, next) => {
         });
       }
     } else {
-      console.log("Usuario incorrecto");
       res.send({
         status: false,
         message: "Usuario incorrecto",

@@ -1,7 +1,6 @@
 const { Prod } = require("../../db");
 
 const getAllProd = async (req, res, next) => {
-  // console.log("entre al controller getAllProd");
   try {
     const prods = await Prod.findAll();
     if (prods) {
@@ -13,4 +12,5 @@ const getAllProd = async (req, res, next) => {
     next(error);
   }
 };
+
 module.exports = getAllProd;

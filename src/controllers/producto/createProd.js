@@ -5,7 +5,6 @@ const createProd = async (req, res, next) => {
   try {
     const  formDataBody  = req.body;
 
-    console.log("formDataBody, ", formDataBody);
     // req.files/////////////////////////////////////////////////////
     if (req.files === null) {
       return res.send("No se cargaron imagenes para el producto");
@@ -24,11 +23,9 @@ const createProd = async (req, res, next) => {
         return res.status(400).send("No se ha enviado ninguna imagen");
       }
       const file = req.files.file;
-      //console.log("ACA MUESTRO EL VALOR DE file", file);
       result = await cloudinary(file.tempFilePath);
       if (result) {
         console.log("Imagen subida a Cloudinary:", result);
-        console.log("typeof(result):", typeof result);
       } else {
         console.error("Error al subir la imagen a Cloudinary:", error);
         res.status(500).send("Error al subir la imagen a Cloudinary");
@@ -99,7 +96,6 @@ const createProd = async (req, res, next) => {
 
     await newProd.setTags(tagsBody);
 
-    console.log(newProd, "nuevo Prod");
     /////////////////////////////////////////////////////////////////////////////////////
 
     res.send({
