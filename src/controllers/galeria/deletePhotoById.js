@@ -1,8 +1,9 @@
 const { Galeria } = require("../../db");
 
 const deletePhoto = async (req, res, next) => {
+  const { id } = req.query;
   try {
-    const photo = await Galeria.findByPk(req.params.id);
+    const photo = await Galeria.findByPk(id);
     if (photo) {
       await photo.destroy();
       res.status(204).json({

@@ -24,7 +24,7 @@ router.post("/", createProd);
 ////////////////////////////
 
 /* DELETE prod listing. */
-router.delete("/delete/:id", deleteProd);
+router.delete("/delete", deleteProd);
 ////////////////////////////
 
 /* PUT prod listing. */

@@ -5,6 +5,7 @@ const router = express.Router();
 ////////////////////////////////////////////////////////////
 const getPhotodById = require("../controllers/galeria/getPhotodById");
 const postPhoto = require("../controllers/galeria/postPhoto");
+const deletePhoto = require("../controllers/galeria/deletePhotoById");
 
 /* GET prod listing. */
 router.get("/getGaleriaById", getPhotodById);
@@ -15,8 +16,8 @@ router.post("/", postPhoto);
 ////////////////////////////
 
 /* DELETE prod listing. */
-// router.delete("/delete/:id", deleteProd);
-////////////////////////////
+router.delete("/delete/", deletePhoto);
+//////////////////////////
 
 /* PUT prod listing. */
 // router.put("/update", modifyProd); //"/update/:id"
